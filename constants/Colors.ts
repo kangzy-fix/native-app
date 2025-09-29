@@ -1,4 +1,23 @@
 export default {
+  light: {
+    background: '#FFFFFF',
+    backgroundSecondary: '#F5F5F5',
+    backgroundTertiary: '#E5E5E5',
+    text: '#000000',
+    textSecondary: '#666666',
+    textTertiary: '#999999',
+    primary: '#DC2626',
+    primaryDark: '#B91C1C',
+    accent: '#EF4444',
+    border: '#E5E5E5',
+    cardBackground: '#FFFFFF',
+    success: '#10B981',
+    warning: '#F59E0B',
+    error: '#EF4444',
+    tint: '#DC2626',
+    tabIconDefault: '#ccc',
+    tabIconSelected: '#DC2626',
+  },
   dark: {
     background: '#0A0A0A',
     backgroundSecondary: '#1A1A1A',
@@ -14,5 +33,8 @@ export default {
     success: '#10B981',
     warning: '#F59E0B',
     error: '#EF4444',
+    tint: '#DC2626',
+    tabIconDefault: '#ccc',
+    tabIconSelected: '#DC2626',
   },
 };

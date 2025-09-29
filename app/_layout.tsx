@@ -1,12 +1,14 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AppContext } from "@/contexts/AppContext";
 import { AuthContext } from "@/contexts/AuthContext";
 import { StatusBar } from "expo-status-bar";
 import { trpc, trpcClient } from "@/lib/trpc";
+import { ActivityIndicator, View } from "react-native";
+import Colors from "@/constants/Colors";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -31,16 +33,38 @@ function RootLayoutNav() {
 }
 
 export default function RootLayout() {
+  const [isReady, setIsReady] = useState(false);
+
   useEffect(() => {
-    SplashScreen.hideAsync();
+    const prepare = async () => {
+      try {
+        // Add any initialization logic here
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setIsReady(true);
+        SplashScreen.hideAsync();
+      }
+    };
+
+    prepare();
   }, []);
+
+  if (!isReady) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Colors.dark.background }}>
+        <ActivityIndicator size="large" color={Colors.dark.primary} />
+      </View>
+    );
+  }
 
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
         <AuthContext>
           <AppContext>
-            <GestureHandlerRootView>
+            <GestureHandlerRootView style={{ flex: 1 }}>
               <RootLayoutNav />
             </GestureHandlerRootView>
           </AppContext>
