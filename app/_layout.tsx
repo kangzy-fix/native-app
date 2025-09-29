@@ -8,7 +8,8 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { StatusBar } from "expo-status-bar";
 import { trpc, trpcClient } from "@/lib/trpc";
 import { ActivityIndicator, View } from "react-native";
-import Colors from "@/constants/Colors";
+import Colors from "@/constants/Colors"
+import { useFrameworkReady } from '@/hooks/useFrameworkReady';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,6 +34,7 @@ function RootLayoutNav() {
 }
 
 export default function RootLayout() {
+  useFrameworkReady();
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
